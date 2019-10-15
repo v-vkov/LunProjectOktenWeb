@@ -3,6 +3,7 @@ const db = require ('../../dataBase').getInstance();
 module.exports = async (req, res, next) => {
     
     try {
+
     const {houseId} = req.params;
     const houseModel = db.getModel('House');
     const isHousePresent = await houseModel.findByPk(houseId);
