@@ -2,6 +2,8 @@ const db = require ('../../dataBase').getInstance();
 
 module.exports = async (req, res) => {
     
+    try {
+         
     const UserModel = db.getModel('User');
     const user = req.body;
     
@@ -13,5 +15,9 @@ module.exports = async (req, res) => {
     });
 
     res.json(user);
+
+    } catch (e) {
+        res.status(400).json(e.message);   
+    }
 
 }
