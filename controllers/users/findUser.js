@@ -1,8 +1,8 @@
-const db = require ('../../dataBase').getInstance();
+const {userService} = require ('../../services');
 
 module.exports = async (req,res) => {
+
+    const users = await userService.findAll();
     
-    const UserModel = db.getModel('User');
-    const users = await UserModel.findAll();
     res.json(users);
 }

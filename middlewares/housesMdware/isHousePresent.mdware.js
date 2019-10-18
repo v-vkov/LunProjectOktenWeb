@@ -1,21 +1,19 @@
-const db = require ('../../dataBase').getInstance();
+const {houseService} = require ('../../services');
 
 module.exports = async (req, res, next) => {
-    
     try {
+        const {houseId} = req.params;
+    
+        const isHousePresent = await houseService.findOne(houseId);
 
-    const {houseId} = req.params;
-    const houseModel = db.getModel('House');
-    const isHousePresent = await houseModel.findByPk(houseId);
+        if (!isHousePresent) {
+            throw new Error (`House with ${houseId} ID is not found`);
+        }
 
-    if (!isHousePresent) {
-        throw new Error (`House with ${houseId} ID is not found`);
-    }
-
-    req.house = isHousePresent;
-    next(); 
+        req.house = isHousePresent;
+        next(); 
     
     } catch (e) {
-    res.status(400).json(e.message);
+        res.status(400).json(e.message);
     }
 }

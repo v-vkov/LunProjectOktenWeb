@@ -1,8 +1,8 @@
-const db = require ('../../dataBase').getInstance();
+const {houseService} = require('../../services');
 
 module.exports = async (req,res) => {
     
-    const houseModel = db.getModel('House');
-    const houses = await houseModel.findAll();
+    const houses = await houseService.findAll();
+    
     res.json(houses);
 }
